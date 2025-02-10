@@ -140,7 +140,7 @@
         }
 
         function atualizarCountdown() {
-            const dataSelecionada = new Date(document.getElementById("opcoes-countdown").value);
+            const dataSelecionada = new Date(document.getElementById("opcoes-countdown").value + 'T03:00:00Z');
             const agora = new Date();
             const diferenca = dataSelecionada - agora;
             const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
