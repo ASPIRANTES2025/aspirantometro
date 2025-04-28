@@ -118,9 +118,9 @@
 
     <div id="countdown-title">COUNTDOWN</div>
     <select id="opcoes-countdown" onchange="atualizarCountdown()">
-        <option value="2025-07-14">Férias</option>
+        <option value="2025-08-18">Férias</option>
         <option value="2025-06-18">100 Dias</option>
-        <option value="2025-09-26">Formatura</option>
+        <option value="2025-09-26" selected>Formatura</option>
     </select>
     <div id="countdown">00d 00h 00m 00s</div>
 
@@ -151,6 +151,7 @@
         }
 
         atualizarAspirantometro();
+        atualizarCountdown();
         setInterval(atualizarCountdown, 1000);
     </script>
 </body>
