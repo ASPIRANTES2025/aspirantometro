@@ -6,7 +6,7 @@
     <title>Aspirantômetro com Countdown</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -29,16 +29,19 @@
             font-size: 2.5rem;
             color: red;
             margin: 0;
+            font-weight: 700;
         }
         #subtitulo {
             font-size: 1.8rem;
             color: black;
             margin: 5px 0 0 0;
+            font-weight: 500;
         }
         #subtitulo-cbmsc {
             font-size: 1.5rem;
             color: black;
             margin: 2px 0 15px 0;
+            font-weight: 400;
         }
         #contador {
             font-size: 1.8rem;
@@ -64,7 +67,10 @@
             height: 20px;
             background: linear-gradient(to right, red, green);
             width: 0;
-            transition: width 0.5s ease;
+            transition: width 1s ease, background 2s ease;
+        }
+        #barra-preenchimento.animar {
+            background: linear-gradient(to right, darkred, darkgreen);
         }
         #barra-faixa {
             position: absolute;
@@ -88,19 +94,31 @@
             margin: 20px 0 10px;
         }
         #countdown {
-            background-color: rgba(173, 216, 230, 0.8);
+            background: linear-gradient(45deg, rgba(173,216,230,0.8), rgba(255,255,255,0.8));
             color: red;
-            font-size: 2.5rem;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 10px 20px;
-            border-radius: 5px;
+            font-size: 3rem;
+            font-family: 'Roboto Mono', monospace;
+            padding: 15px 25px;
+            border-radius: 15px;
             display: inline-block;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
         #opcoes-countdown {
             margin-top: 10px;
+            padding: 5px;
+            font-size: 1rem;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        #progressiva {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #333;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="contador-container">
@@ -123,6 +141,7 @@
         <option value="2025-09-26" selected>Formatura</option>
     </select>
     <div id="countdown">00d 00h 00m 00s</div>
+    <div id="progressiva">3° CFO - Dia 000</div>
 
     <script>
         function atualizarAspirantometro() {
@@ -136,7 +155,18 @@
 
             document.getElementById("contador").textContent = `Dia ${diasPassados} de ${totalDias}`;
             document.getElementById("porcentagem").textContent = `Progresso: ${porcentagem}%`;
-            document.getElementById("barra-preenchimento").style.width = `${porcentagem}%`;
+            const barra = document.getElementById("barra-preenchimento");
+            barra.style.width = `${porcentagem}%`;
+            barra.classList.add("animar");
+            setTimeout(() => barra.classList.remove("animar"), 2000);
+        }
+
+        function atualizarContadorProgressivo() {
+            const inicioCFO = new Date("2024-06-07");
+            const hoje = new Date();
+            const inicioHoje = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+            const diaAtualCFO = Math.floor((inicioHoje - inicioCFO) / (1000 * 60 * 60 * 24));
+            document.getElementById("progressiva").textContent = `3° CFO - Dia ${diaAtualCFO}`;
         }
 
         function atualizarCountdown() {
@@ -151,6 +181,7 @@
         }
 
         atualizarAspirantometro();
+        atualizarContadorProgressivo();
         atualizarCountdown();
         setInterval(atualizarCountdown, 1000);
     </script>
